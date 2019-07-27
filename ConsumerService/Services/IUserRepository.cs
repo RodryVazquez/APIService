@@ -14,5 +14,6 @@ namespace ConsumerService.Services
         Task<Users> Update(Users user);
         Task<Users> Remove(int userId);
         Task<bool> Exist(int userId);
+        Task<UserAuthentication> Authenticate(string userName, string password);
     }
 }

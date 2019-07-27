@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using ConsumerService.Models;
 using ConsumerService.Models.UserViewModel;
 using ConsumerService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsumerService.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Users")]
     public class UsersController : BaseController
@@ -21,7 +23,18 @@ namespace ConsumerService.Controllers
         {
             _userRepository = userRepository;
         }
-        
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] UserAuthentication user)
+        {
+            var userAuth = await _userRepository.Authenticate(user.Username, user.Password);
+            if (userAuth == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(userAuth);
+        }
+
         [HttpGet]
         public IActionResult GetUsers()
         {
