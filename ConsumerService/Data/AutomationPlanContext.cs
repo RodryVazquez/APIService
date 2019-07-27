@@ -19,6 +19,7 @@ namespace ConsumerService.Data
 
         public virtual DbSet<Plants> Plants { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -70,6 +71,22 @@ namespace ConsumerService.Data
                 entity.Property(e => e.SecondLastName)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<UserAuthentication>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Token)
+                    .HasMaxLength(500);
             });
         }
     }

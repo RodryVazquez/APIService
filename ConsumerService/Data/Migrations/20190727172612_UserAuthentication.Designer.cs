@@ -4,14 +4,16 @@ using ConsumerService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConsumerService.Migrations
 {
     [DbContext(typeof(AutomationPlanContext))]
-    partial class AutomationPlanContextModelSnapshot : ModelSnapshot
+    [Migration("20190727172612_UserAuthentication")]
+    partial class UserAuthentication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
