@@ -29,7 +29,7 @@ namespace ConsumerService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = "";
+            var connection = Configuration["ConnectionString"];
             services.AddDbContext<AutomationPlanContext>(p => p.UseSqlServer(connection));
 
             services.AddScoped<IUserRepository, UserRepository>();
